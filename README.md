@@ -152,7 +152,7 @@ The project uses a pretrained YOLOv8s model for transfer learning.
 ```python
 model.train(
     data="/content/visdrone.yaml",
-    epochs=50,
+    epochs=37,
     imgsz=640,
     batch=16,
     device=0,
