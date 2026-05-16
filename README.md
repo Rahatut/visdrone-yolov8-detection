@@ -226,6 +226,30 @@ The project successfully demonstrates:
 
 ---
 
+## Challenges Faced
+
+* Small object detection due to aerial viewpoint
+* Dense crowd occlusion in busy scenes
+* Limited GPU runtime constraints
+* High-resolution training increases memory usage
+
+## Strengths and Limitations
+
+Strengths:
+
+* Detects small pedestrians reasonably well
+* Fast inference using YOLOv8
+* Real-time capable on GPU
+* Human counting integrated directly into inference
+
+Limitations:
+
+* Counting accuracy decreases in crowded scenes
+* Occluded pedestrians may be missed
+* Model is trained on two classes only
+* No tracking between frames
+
+
 # License
 
 This project is intended for academic and educational purposes.
