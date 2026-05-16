@@ -1,3 +1,10 @@
+# Project artifacts
+dataset/
+runs/
+*.pt
+*.zip
+.ipynb_checkpoints/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

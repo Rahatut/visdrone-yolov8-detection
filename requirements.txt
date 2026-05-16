@@ -1,0 +1,9 @@
+ultralytics
+torch
+opencv-python
+matplotlib
+numpy
+pandas
+supervision
+roboflow
+lapx
