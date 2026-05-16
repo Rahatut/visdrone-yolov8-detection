@@ -213,24 +213,31 @@ Metrics were extracted directly from YOLOv8 training logs.
 
 ## Results
 
-| Metric              | Epoch 1 | Epoch 30 | Observation                              |
-| ------------------- | ------- | -------- | ---------------------------------------- |
-| Box Loss            | 1.60    | 1.32     | Strong decrease → localization improving |
-| Classification Loss | 1.16    | 0.75     | Major improvement in class prediction    |
-| DFL Loss            | 0.96    | 0.87     | Bounding box refinement improving        |
-| Precision           | 0.54    | 0.70     | Fewer false positives over time          |
-| Recall              | 0.41    | 0.55     | Model detecting more objects             |
-| mAP50               | 0.41    | 0.59     | Significant detection improvement        |
-| mAP50-95            | 0.23    | 0.35     | Better localization quality              |
-| Validation Box Loss | 1.46    | 1.18     | Validation performance improving         |
-| Learning Rate       | 0.00055 | 0.00070  | Scheduler behaving normally              |
+The YOLOv8s model showed stable convergence throughout training, with both training and validation losses decreasing consistently over time. Detection performance improved steadily across epochs, particularly for pedestrian detection, which is challenging in aerial imagery due to small object sizes and crowd density.
 
+| Metric                         | Epoch 1 | Epoch 37 | Observation                                                      |
+| ------------------------------ | ------- | -------- | ---------------------------------------------------------------- |
+| Box Loss                       | 1.60    | 1.30     | Significant reduction, indicating improved localization accuracy |
+| Classification Loss            | 1.16    | 0.73     | Strong improvement in class prediction capability                |
+| DFL Loss                       | 0.96    | 0.86     | Better bounding box refinement during training                   |
+| Precision                      | 0.54    | 0.70     | Reduction in false positive detections                           |
+| Recall                         | 0.41    | 0.56     | Improved object detection coverage                               |
+| mAP50                          | 0.41    | 0.61     | Strong improvement in detection performance                      |
+| mAP50-95                       | 0.23    | 0.36     | Improved localization quality across IoU thresholds              |
+| Validation Box Loss            | 1.46    | 1.17     | Validation performance improved consistently                     |
+| Validation Classification Loss | 0.99    | 0.69     | Better generalization on validation data                         |
+| Validation DFL Loss            | 0.93    | 0.86     | Stable validation localization refinement                        |
+| Learning Rate                  | 0.00055 | 0.00048  | Scheduler gradually reduced learning rate for stable convergence |
 
-The training results indicate stable convergence of the YOLOv8s model throughout the training process. Training losses consistently decreased while validation precision, recall, and mAP metrics improved over successive epochs, demonstrating effective learning and generalization.
+### Training Analysis
 
-By epoch 30, the model achieved approximately 0.59 mAP50 and 0.35 mAP50-95 on the validation set. Considering the challenges associated with aerial imagery, including very small object sizes, occlusion, and dense urban scenes, the obtained performance is considered reasonable for a lightweight real-time detector.
+Several important trends were observed during training:
 
-The results also indicate that the model maintained relatively strong precision while recall remained comparatively lower, suggesting that some distant or highly occluded pedestrians were still missed during detection. This behavior is common in drone-based small-object detection tasks.
+* Loss curves consistently decreased, indicating stable optimization and effective transfer learning from the pretrained YOLOv8s weights.
+* Precision improved steadily, suggesting that the model learned to reduce incorrect detections over time.
+* Recall increased gradually, meaning the detector became more capable of identifying pedestrians and cars across complex aerial scenes.
+* mAP50 and mAP50-95 improved throughout training, demonstrating stronger overall detection quality and bounding box localization.
+* Validation losses followed similar trends to training losses, indicating that the model generalized reasonably well without severe overfitting.
 
 ---
 
@@ -266,20 +273,6 @@ Possible applications include:
 
 ---
 
-# Results Summary
-
-The project successfully demonstrates:
-
-* Aerial pedestrian and car detection
-* Human counting capability
-* Real-time inference performance
-* Effective transfer learning using YOLOv8
-* Detection visualization and evaluation
-
-The system performs reasonably well despite the challenges associated with aerial imagery and small object detection.
-
----
-
 # Challenges Faced
 
 Major implementation challenges included:
@@ -292,22 +285,30 @@ Major implementation challenges included:
 
 ---
 
-# Strengths and Limitations
+### Observed Strengths
 
-## Strengths
+* Effective detection of cars and pedestrians from aerial viewpoints.
+* Good performance on small and medium-sized objects after high-resolution training.
+* Stable convergence despite dense urban scenes and occlusions.
+* Real-time capable inference performance using YOLOv8s.
 
-* Detects pedestrians and cars effectively
-* Fast inference using YOLOv8
-* Real-time capable on GPU
-* Human counting integrated into inference pipeline
-* Lightweight and easy to deploy
+### Observed Limitations
 
-## Limitations
+* Detection quality decreases in highly crowded scenes with severe occlusion.
+* Very small pedestrians at long distances are occasionally missed.
+* Human counting accuracy depends directly on detection accuracy.
+* Only two object classes were trained, limiting scene understanding capability.
 
-* Counting accuracy decreases in crowded scenes
-* Very small or heavily occluded pedestrians may be missed
-* Model is trained on only two classes
-* No multi-object tracking between frames
+### Overall Outcome
+
+The final model successfully achieved the project objectives by:
+
+* Detecting pedestrians and cars from drone imagery
+* Performing automated human counting
+* Generating visualized prediction outputs with confidence scores
+* Achieving stable detection performance with efficient inference speed
+
+The results demonstrate that YOLOv8s is effective for lightweight aerial object detection tasks under constrained GPU training environments.
 
 ---
 
